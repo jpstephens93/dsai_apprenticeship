@@ -10,7 +10,7 @@ mean_weight = df['weight'].mean()
 max_horsepower = df['horsepower'].max()
 
 # 3) heavy cars
-heavy_cars = df[df['weight'] > 3500]
+heavy_cars = len(df[df['weight'] > 3500])
 
 # 4) df_ratio
 df_ratio = df.copy()
