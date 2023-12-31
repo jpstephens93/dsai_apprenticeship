@@ -56,13 +56,13 @@ vietnam_older_70 = country_metric(countries, 'Vietnam', 'aged_70_older')
 
 
 # 15)
-def countries_average(df: pd.DataFrame, countries_list: list, metric: str):
-    return df[df['location'].isin(countries_list)][metric].mean()
+def countries_average(df: pd.DataFrame, countries: list, metric: str):
+    return df[df['location'].isin(countries)][metric].mean()
 
 
 # test
 df = countries.copy()
-countries_list = ['Vietnam', 'United Kingdom']
+countries = ['Vietnam', 'United Kingdom']
 metric = 'life_expectancy'
 
 # 16)
