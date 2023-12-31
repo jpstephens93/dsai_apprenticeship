@@ -74,4 +74,4 @@ min_life_exp = countries['life_expectancy'].min()
 country = countries[countries['life_expectancy'] == min_life_exp]['location'].values[0]
 diff = round(g7_avg_life_expectancy - min_life_exp, 1)
 
-headline = f'{country} has a life expectancy of {diff} years lower than the G7 average'
+headline = f'{country} has a life expectancy of {diff} years lower than the G7 average.'
