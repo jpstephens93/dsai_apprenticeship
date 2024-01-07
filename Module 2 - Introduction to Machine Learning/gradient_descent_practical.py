@@ -60,5 +60,3 @@ for i in range(iterations):
 
 print(f'beta: {beta}')
 np.isclose(beta, [b, w1, w2])
-
-# Using OLS
