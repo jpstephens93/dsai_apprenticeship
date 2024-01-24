@@ -38,4 +38,18 @@ sp = data_season.sample(3)
 # Q4.
 data_humidity = data_season.copy()
 
-data_humidity['Humidity(%)'].str.replace('%', '')
+data_humidity.replace(
+    {'30%-70%': sum([30, 70]) / 2, '<30%': sum([0, 30]) / 2, '>70%': sum([70, 100]) / 2}, inplace=True
+)
+data_humidity["Humidity(%)"].value_counts()
+
+# Q5.
+data.describe()
+cont_cols = data.describe().columns.tolist()
+
+plt.figure()
+continuous_fig = plt.hist(data[cont_cols])
+plt.tight_layout()
+
+# Q6.
+
