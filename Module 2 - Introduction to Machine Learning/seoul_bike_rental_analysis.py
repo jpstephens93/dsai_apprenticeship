@@ -48,8 +48,14 @@ data.describe()
 cont_cols = data.describe().columns.tolist()
 
 plt.figure()
-continuous_fig = plt.hist(data[cont_cols])
+continuous_fig = data.hist(cont_cols)
 plt.tight_layout()
+plt.show()
 
 # Q6.
+data_binary = data_humidity.copy()
 
+data_binary["Zero Solar Radiation"] = [True if x < 0.1 else False for x in data_binary["Solar Radiation (MJ/m2)"]]
+data_binary["Zero Snowfall"] = [True if x < 0.1 else False for x in data_binary["Snowfall (cm)"]]
+data_binary["Zero Rainfall"] = [True if x < 0.1 else False for x in data_binary["Rainfall(mm)"]]
+data_binary["Max Visibility"] = [True if x < 0.1 else False for x in data_binary["Solar Radiation (MJ/m2)"]]
