@@ -59,3 +59,5 @@ data_binary["Zero Solar Radiation"] = [True if x < 0.1 else False for x in data_
 data_binary["Zero Snowfall"] = [True if x < 0.1 else False for x in data_binary["Snowfall (cm)"]]
 data_binary["Zero Rainfall"] = [True if x < 0.1 else False for x in data_binary["Rainfall(mm)"]]
 data_binary["Max Visibility"] = [True if x < 0.1 else False for x in data_binary["Solar Radiation (MJ/m2)"]]
+
+# Q7.
