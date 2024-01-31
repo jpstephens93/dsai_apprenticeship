@@ -10,8 +10,8 @@ plt.rcParams["figure.dpi"] = 120
 data = pd.read_csv("Module 2 - Introduction to Machine Learning/data/seoul_bike_data.csv")
 
 # Q1.
-categorical = [0, 2, 4, 11, 12, 13]
-continuous = [1, 3, 5, 6, 7, 8, 9, 10]
+categorical = [0, 4, 11, 12, 13]
+continuous = [1, 2, 3, 5, 6, 7, 8, 9, 10]
 
 # Q2.
 data_date = data.copy()
@@ -32,8 +32,8 @@ data_season = data_date.copy()
 
 data_season["Spring"] = data_season['Seasons'].str.contains('Spring')
 data_season["Summer"] = data_season['Seasons'].str.contains('Summer')
-data_season["Winter"] = data_season['Seasons'].str.contains('Winter')
 data_season["Autumn"] = data_season['Seasons'].str.contains('Autumn')
+data_season["Winter"] = data_season['Seasons'].str.contains('Winter')
 
 sp = data_season.sample(3)
 
@@ -60,7 +60,9 @@ data_binary = data_humidity.copy()
 data_binary["Zero Solar Radiation"] = [True if x < 0.1 else False for x in data_binary["Solar Radiation (MJ/m2)"]]
 data_binary["Zero Snowfall"] = [True if x < 0.1 else False for x in data_binary["Snowfall (cm)"]]
 data_binary["Zero Rainfall"] = [True if x < 0.1 else False for x in data_binary["Rainfall(mm)"]]
-data_binary["Max Visibility"] = [True if x < 0.1 else False for x in data_binary["Solar Radiation (MJ/m2)"]]
+data_binary["Max Visibility"] = [
+    True if x > (max(data_binary["Visibility (10m)"]) - 0.1) else False for x in data_binary["Visibility (10m)"]
+]
 
 data_binary["Zero Solar Radiation"].value_counts()
 
@@ -87,7 +89,7 @@ bike_hour_dependency = sns.violinplot(data, x='Hour', y='Rented Bike Count')
 plt.show()
 
 # Q10.
-mean_count = data[['Hour', 'Rented Bike Count']].groupby('Hour').mean()
+mean_count = data[['Hour', 'Rented Bike Count']].groupby('Hour').mean()['Rented Bike Count']
 mean_count.plot()
 plt.show()
 
@@ -98,7 +100,7 @@ final_data["Hour Cat 1"] = (3 <= final_data['Hour']) & (final_data['Hour'] < 7)
 final_data["Hour Cat 2"] = (7 <= final_data['Hour']) & (final_data['Hour'] < 10)
 final_data["Hour Cat 3"] = (10 <= final_data['Hour']) & (final_data['Hour'] < 14)
 final_data["Hour Cat 4"] = (14 <= final_data['Hour']) & (final_data['Hour'] < 22)
-final_data["Hour Cat 5"] = final_data['Hour'] < 3
+final_data["Hour Cat 5"] = (22 <= final_data['Hour']) | (final_data['Hour'] < 3)
 
 
 # Q12.
@@ -129,7 +131,8 @@ full_model_original = prediction_error([
 
 full_model_updated = prediction_error([
     'Hour Cat 1', 'Hour Cat 2', 'Hour Cat 3', 'Hour Cat 4', 'Hour Cat 5', 'Temperature(°C)', 'Wind speed (m/s)',
-    'Zero Solar Radiation', 'Zero Snowfall', 'Zero Rainfall', 'Max Visibility', 'Dew point temperature(°C)'
+    'Zero Solar Radiation', 'Zero Snowfall', 'Zero Rainfall', 'Max Visibility', 'Dew point temperature(°C)',
+    'Spring', 'Summer', 'Autumn', 'Winter', 'Morning', 'Afternoon', 'Evening', 'Night', 'DayCount'
 ])
 
 print(full_model_original, full_model_updated)
